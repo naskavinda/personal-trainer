@@ -13,6 +13,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Facebook, Instagram, Twitter } from "lucide-react";
 
 const carouselImages = [
   "/carousel-1.jpg",
@@ -25,34 +27,58 @@ const pricingPlans = [
     name: "Basic",
     price: "$49",
     duration: "per month",
-    description: "Perfect for beginners",
+    description: "Perfect for beginners starting their fitness journey",
     features: [
-      "1 training session per week",
-      "Basic meal plan",
-      "Email support",
+      "2 training sessions per week",
+      "Basic fitness assessment",
+      "Personalized workout plan",
+      "Basic nutrition guidelines",
+      "Monthly progress tracking",
+      "Email support within 24 hours",
+      "Access to workout app",
+      "Monthly body composition analysis"
     ],
+    highlight: false,
   },
   {
     name: "Pro",
     price: "$99",
     duration: "per month",
-    description: "Ideal for dedicated fitness enthusiasts",
+    description: "Ideal for dedicated fitness enthusiasts seeking serious results",
     features: [
       "3 training sessions per week",
-      "Customized meal plan",
-      "24/7 chat support",
+      "Advanced fitness assessment",
+      "Customized workout program",
+      "Detailed nutrition plan",
+      "Bi-weekly progress tracking",
+      "Priority email & chat support",
+      "Access to premium workout app",
+      "Bi-weekly body composition analysis",
+      "Supplement recommendations",
+      "Recovery techniques guidance"
     ],
+    highlight: true,
   },
   {
     name: "Elite",
     price: "$199",
     duration: "per month",
-    description: "For those seeking maximum results",
+    description: "For those seeking maximum results and premium support",
     features: [
       "5 training sessions per week",
-      "Personalized meal plan",
+      "Comprehensive fitness assessment",
+      "Fully customized workout program",
+      "Advanced nutrition & meal planning",
+      "Weekly progress tracking",
       "24/7 priority support",
+      "Premium app with exclusive content",
+      "Weekly body composition analysis",
+      "Personalized supplement plan",
+      "Recovery & mobility program",
+      "Lifestyle & stress management",
+      "Group fitness classes included"
     ],
+    highlight: false,
   },
 ];
 
@@ -80,7 +106,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center">
       {/* Hero Section with Carousel */}
-      <section className="w-full h-[80vh] relative overflow-hidden">
+      <section className="w-full h-screen relative overflow-hidden -mt-20">
         {carouselImages.map((src, index) => (
           <Image
             key={src}
@@ -133,9 +159,10 @@ export default function Home() {
       </section>
 
       {/* Featured Services */}
-      <section className="py-16 bg-secondary text-secondary-foreground w-full">
+      <section id="services" className="py-16 bg-secondary text-secondary-foreground w-full scroll-mt-24">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
+          <h2 className="text-4xl font-bold text-center mb-4">Our Services</h2>
+          <p className="text-xl text-center text-muted-foreground mb-12">Transform your life with our specialized fitness programs</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <Card className="hover:shadow-lg transition-shadow">
               <CardHeader>
@@ -201,94 +228,177 @@ export default function Home() {
               </CardFooter>
             </Card>
           </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section className="py-16 w-full bg-background text-foreground">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">
-            Pricing Plans
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pricingPlans.map((plan, index) => (
-              <Card key={index} className="flex flex-col">
-                <CardHeader>
-                  <CardTitle>{plan.name}</CardTitle>
-                  <CardDescription>
-                    <span className="text-3xl font-bold">{plan.price}</span>{" "}
-                    {plan.duration}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="mb-4">{plan.description}</p>
-                  <ul className="space-y-2">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center">
-                        <svg
-                          className="w-4 h-4 mr-2 text-green-500"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M5 13l4 4L19 7"
-                          ></path>
-                        </svg>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-                <CardFooter>
-                  <Button asChild className="w-full">
-                    <Link href="/contact">Choose Plan</Link>
-                  </Button>
-                </CardFooter>
-              </Card>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Button asChild size="lg" variant="outline">
-              <Link href="/pricing">View Full Pricing Details</Link>
+          <div className="mt-12 text-center">
+            <Button asChild size="lg">
+              <Link href="/services">
+                View All Services
+              </Link>
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Featured Transformation */}
-      <section className="py-16 w-full bg-muted text-muted-foreground">
+      {/* Pricing Section */}
+      <section id="pricing" className="py-16 w-full bg-background scroll-mt-24">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center mb-4">Pricing Plans</h2>
+          <p className="text-xl text-center text-muted-foreground mb-12">Choose the perfect plan for your fitness journey</p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pricingPlans.map((plan) => (
+              <Card 
+                key={plan.name}
+                className={cn(
+                  "relative hover:shadow-lg transition-all duration-300",
+                  plan.highlight && "border-primary shadow-md scale-105"
+                )}
+              >
+                {plan.highlight && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+                <CardHeader>
+                  <CardTitle className="text-2xl text-center">{plan.name}</CardTitle>
+                  <CardDescription className="text-center">
+                    <span className="text-3xl font-bold">{plan.price}</span>
+                    <span className="text-muted-foreground"> {plan.duration}</span>
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-muted-foreground mb-6">{plan.description}</p>
+                  <ul className="space-y-3 text-left">
+                    {plan.features.map((feature, index) => (
+                      <li key={index} className="flex items-center">
+                        <svg
+                          className="h-5 w-5 text-primary flex-shrink-0"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                        <span className="ml-3">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+                <CardFooter>
+                  <Button 
+                    asChild 
+                    className="w-full" 
+                    variant={plan.highlight ? "default" : "outline"}
+                  >
+                    <Link href="/contact">Get Started</Link>
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Trainers Section */}
+      <section id="trainers" className="py-16 w-full bg-muted text-muted-foreground">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-12">
-            Featured Transformation
+            Meet Our Expert Trainers
           </h2>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
-            <Image
-              src="/placeholder.svg?height=400&width=300&text=Before"
-              alt="Before Transformation"
-              width={300}
-              height={400}
-              className="rounded-lg shadow-md"
-            />
-            <Image
-              src="/placeholder.svg?height=400&width=300&text=After"
-              alt="After Transformation"
-              width={300}
-              height={400}
-              className="rounded-lg shadow-md"
-            />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card className="flex flex-col">
+              <CardHeader>
+                <Image
+                  src="/john-doe.jpg"
+                  alt="John Doe"
+                  width={300}
+                  height={400}
+                  className="rounded-lg shadow-md object-cover w-full"
+                />
+                <CardTitle className="mt-4">John Doe</CardTitle>
+                <CardDescription>Bodybuilding & Strength Training</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>With over 10 years of experience in bodybuilding, John has helped hundreds of clients achieve their dream physique.</p>
+              </CardContent>
+              <CardFooter className="flex justify-center space-x-4">
+                <Link href="https://facebook.com/johndoe" target="_blank" className="hover:text-primary">
+                  <Facebook className="h-5 w-5" />
+                </Link>
+                <Link href="https://instagram.com/johndoe" target="_blank" className="hover:text-primary">
+                  <Instagram className="h-5 w-5" />
+                </Link>
+                <Link href="https://twitter.com/johndoe" target="_blank" className="hover:text-primary">
+                  <Twitter className="h-5 w-5" />
+                </Link>
+              </CardFooter>
+            </Card>
+
+            <Card className="flex flex-col">
+              <CardHeader>
+                <Image
+                  src="/jane-smith.jpg"
+                  alt="Jane Smith"
+                  width={300}
+                  height={400}
+                  className="rounded-lg shadow-md object-cover w-full"
+                />
+                <CardTitle className="mt-4">Jane Smith</CardTitle>
+                <CardDescription>Nutrition & Weight Loss</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Jane is a certified nutritionist with a passion for helping clients transform their bodies through proper diet and exercise.</p>
+              </CardContent>
+              <CardFooter className="flex justify-center space-x-4">
+                <Link href="https://facebook.com/janesmith" target="_blank" className="hover:text-primary">
+                  <Facebook className="h-5 w-5" />
+                </Link>
+                <Link href="https://instagram.com/janesmith" target="_blank" className="hover:text-primary">
+                  <Instagram className="h-5 w-5" />
+                </Link>
+                <Link href="https://twitter.com/janesmith" target="_blank" className="hover:text-primary">
+                  <Twitter className="h-5 w-5" />
+                </Link>
+              </CardFooter>
+            </Card>
+
+            <Card className="flex flex-col">
+              <CardHeader>
+                <Image
+                  src="/mike-johnson.jpg"
+                  alt="Mike Johnson"
+                  width={300}
+                  height={400}
+                  className="rounded-lg shadow-md object-cover w-full"
+                />
+                <CardTitle className="mt-4">Mike Johnson</CardTitle>
+                <CardDescription>Functional Fitness & Rehabilitation</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Mike specializes in helping clients recover from injuries and improve their overall functional fitness.</p>
+              </CardContent>
+              <CardFooter className="flex justify-center space-x-4">
+                <Link href="https://facebook.com/mikejohnson" target="_blank" className="hover:text-primary">
+                  <Facebook className="h-5 w-5" />
+                </Link>
+                <Link href="https://instagram.com/mikejohnson" target="_blank" className="hover:text-primary">
+                  <Instagram className="h-5 w-5" />
+                </Link>
+                <Link href="https://twitter.com/mikejohnson" target="_blank" className="hover:text-primary">
+                  <Twitter className="h-5 w-5" />
+                </Link>
+              </CardFooter>
+            </Card>
           </div>
-          <div className="text-center mt-8">
-            <p className="text-xl mb-4 italic">
-              &quot;I never thought I could achieve this. Thanks to [Your Name],
-              I&apos;m in the best shape of my life!&quot;
-            </p>
+          <div className="mt-12 text-center">
             <Button asChild size="lg">
-              <Link href="/transformations">See More Transformations</Link>
+              <Link href="/trainers">View All Trainers</Link>
             </Button>
           </div>
         </div>

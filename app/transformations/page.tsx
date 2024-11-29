@@ -1,4 +1,6 @@
 import Image from "next/image"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Transformations() {
@@ -26,6 +28,11 @@ export default function Transformations() {
 
   return (
     <div className="container mx-auto px-4 py-16 bg-background text-foreground">
+      <div className="mb-8">
+        <Button asChild variant="outline">
+          <Link href="/">← Back to Home</Link>
+        </Button>
+      </div>
       <h1 className="text-4xl font-bold mb-8 text-center">Client Transformations</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {transformations.map((transformation, index) => (
@@ -58,4 +65,3 @@ export default function Transformations() {
     </div>
   )
 }
-
